@@ -160,11 +160,11 @@ AUTH_USER_MODEL = 'account_module.User'
 # Send email Config
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = local_settings.EMAIL_HOST
 EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'hamid501rahimi@gmail.com'
-EMAIL_HOST_PASSWORD = 'dqbp eeux xlkx wjcb'
+EMAIL_PORT = local_settings.EMAIL_PORT
+EMAIL_HOST_USER = local_settings.CallbackURL
+EMAIL_HOST_PASSWORD = local_settings.EMAIL_HOST_PASSWORD
 
 
 # default settings (optional)
@@ -198,9 +198,9 @@ JALALI_DATE_DEFAULTS = {
 SANDBOX = True
 MERCHANT_ID = local_settings.MERCHANT_ID
 sandbox = 0
-ZP_API_REQUEST = f"https://{sandbox}.zarinpal.com/pg/rest/WebGate/PaymentRequest.json"
-ZP_API_VERIFY = f"https://{sandbox}.zarinpal.com/pg/rest/WebGate/PaymentVerification.json"
-ZP_API_STARTPAY = f"https://{sandbox}.zarinpal.com/pg/StartPay/"
+ZP_API_REQUEST = local_settings.ZP_API_REQUEST
+ZP_API_VERIFY = local_settings.ZP_API_VERIFY
+ZP_API_STARTPAY = local_settings.ZP_API_STARTPAY
 
 # Important: need to edit for realy server.
-CallbackURL = 'http://127.0.0.1:8000/payment/verify/'
+CallbackURL = local_settings.CallbackURL
