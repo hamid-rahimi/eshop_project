@@ -1,0 +1,69 @@
+{% extends "shared/_layout.html" %}
+{% load thumbnail %}
+{% load poll_extras %}
+
+{% block title %}
+    سبد خرید
+{% endblock title %}
+
+{% block content %}
+	{% if order %}
+	    <section id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="{% url "home_module:home-page" %}">خانـه</a></li>
+				  <li class="active">سبد خرید</li>
+				</ol>
+			</div><!--/breadcrums-->
+
+			<div class="step-one">
+				<h2 class="heading">مرحلـه اول</h2>
+			</div>
+			<div class="checkout-options">
+				<h3>کاربـر جدیـد</h3>
+				<p>گزینـه های پرداخت</p>
+				<ul class="nav">
+					<li>
+						<label><input type="radio"> ثبت نام هنگام پرداخت</label>
+					</li>
+					<li>
+						<label><input type="radio"> پرداخت به عنوان مهمان</label>
+					</li>
+					<li>
+						<a href=""><i class="fa fa-times"></i>انصراف</a>
+					</li>
+				</ul>
+			</div><!--/checkout-options-->
+
+			<div class="register-req">
+				<p>لطفـاً برای دسترسی آسان به تاریخچـه خریـد خود از گزینه " ثبت نام هنگام پرداخت " استفاده نمایید و در غیر اینصورت گزینه " خرید به عنوان مهمان " را انتخاب نمایید</p>
+			</div><!--/register-req-->
+
+			<div class="review-payment">
+				<h2>مشاهـده و پرداخت</h2>
+			</div>
+
+			<div class="table-responsive cart_info" id="cart_detail_info">
+				{% include "order_module/includes/order_item_table.html" %}
+			</div>
+			<div class="payment-options">
+                <span>
+                    <label><input type="radio"> پرداخت مستقیـم بانکی</label>
+                </span>
+                <span>
+                    <label><input type="radio"> پرداخت از طریـق زریـن پال</label>
+                </span>
+                <span>
+                    <label><input type="radio"> پرداخت درب منزل </label>
+                </span>
+                <span>
+                    <a href="{% url "payment_module:payment_request" order_id=order.id %}" class="btn btn-primary">ثبت و پرداخت نهایـی</a>
+                </span>
+            </div>
+		</div>
+	</section>
+	{% else %}
+	empty
+	{% endif %}
+{% endblock content %}

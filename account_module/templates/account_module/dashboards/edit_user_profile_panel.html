@@ -1,0 +1,81 @@
+{% extends "shared/_layout.html" %}
+{% load static %}
+{% load thumbnail %}
+{% load render_partial %}
+{% block title %}داشبورد{% endblock title %}
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="blog-post-area">
+                    <h2 class="title text-center">داشبورد کاربری</h2>
+                    <form class="" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-sm-1">
+                                {{form.gender.label_tag}}
+                            <p class="inline"> {{form.gender}}</p>
+                            </div>
+                            <div class="col-sm-2">
+                                {{form.age.label_tag}}
+                                {{form.age}}
+                            </div>
+                            <div class="col-sm-5">
+                                {{form.last_name.label_tag}}
+                                {{form.last_name}}
+                            </div>
+                            <div class="col-sm-4">
+                                {{form.first_name.label_tag}}
+                                {{form.first_name}}
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                {{form.email.label_tag}}
+                                {{form.email}}
+                            </div>
+                            <div class="col-sm-6">
+                                {{form.mobile.label_tag}}
+                                {{form.mobile}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {{form.address.label_tag}}
+                                {{form.address}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                {{form.abut_user.label_tag}}
+                                {{form.abut_user}}
+                            </div>
+                            <div class="col-sm-3">
+                                <a class="thumbnail">
+                                {% thumbnail fields.avatar "200x250" as im %}
+                                <img src="{{im.url}}" alt="profil picther">
+                                {% endthumbnail %}
+                                </a>
+                            </div>
+                            <div class="col-sm-3">
+                                {{form.avatar.label_tag}}
+                                {{form.avatar}}
+                            </div>
+
+                        </div>
+                        <div class="row text-center">
+                            <input class="button btn-primary " type="submit" value="ثبت تغییر">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                {% render_partial "account_module.views.dashboard_loader_component" %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+

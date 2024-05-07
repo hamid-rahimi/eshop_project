@@ -1,0 +1,10 @@
+
+<h1>Hello {{user}}</h1>
+<br>
+<hr>
+<br>
+<h5>press this link to active your account.</h5>
+<br><hr><br>
+<a href="http://127.0.0.1:8000{% url "account_module:reset_pass_page" pass_ok=user.active_code %}">Click Me</a>
+<br><hr><br>
+<h6>Tanks</h6>

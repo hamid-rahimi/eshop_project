@@ -1,0 +1,37 @@
+{% extends "shared/_layout.html" %}
+
+{% block title %}بازیابی کلمه عبور{% endblock title %}
+
+{% block content %}
+    <div class="container">
+		<section id="form"><!--form-->
+			<div class="row">
+				<div class="col-sm-6 col-md-offset-3">
+					<div class="forget-password">
+						<div class="login-form"><!--login form-->
+							<h2 class="text-center">اطلاعات حساب خود را به یاد آوردید ؟! </h2>
+							<form action="" method="post" class="text-center" novalidate>
+								{% csrf_token %}
+								{{form.password_1.label_tag}}
+								{{form.password_1.errors}}
+								{{form.password_1}}
+								{{form.password_2.label_tag}}
+								{{form.password_2.errors}}
+								{{form.password_2}}
+								{% for key,error in form.errors.items %}
+									{% if key == '__all__' %}{{error}}{% endif %}
+								{% endfor %}
+								{% comment %} <span>
+									<input type="checkbox" class="checkbox"> 
+									مرا بخاطـر بسپـار
+								</span> {% endcomment %}
+								<button type="submit" class="btn btn-default">ورود</button>
+							</form>
+						</div><!--/login form-->
+					</div>
+				</div>
+			</div>
+		</section>
+		
+	</div>
+{% endblock content %}

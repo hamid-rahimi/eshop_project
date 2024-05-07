@@ -1,0 +1,16 @@
+table, th, td{
+    border: 1px solid red;
+    border-radius: 3px;
+}
+
+td a {
+    text-decoration: none;
+    color: black;
+    text-align: center;
+}
+
+h5 a {
+    text-decoration: none;
+    
+}
+

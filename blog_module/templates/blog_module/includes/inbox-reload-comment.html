@@ -1,0 +1,48 @@
+{% load static %}
+{% load jalali_tags %}
+{% load thumbnail %}
+
+
+<h2> نظرات ({{comments_count}})</h2>
+	<ul class="media-list">
+		{% for comment in comments %}
+		<li class="media" id="comment-location-{{comment.id}}">
+			
+			<a class="pull-right" href="#">
+			{% thumbnail comment.author.userprofile.avatar "121x86" quality=100 as im %}
+				<img class="media-object" src="{{ im.url }}" alt="">
+			{% endthumbnail %}
+			</a>
+			<div class="media-body">
+				<ul class="sinlge-post-meta">
+					<li><i class="fa fa-user"></i>{{comment.author}}</li>
+					<li><i class="fa fa-clock-o"></i>{{comment.created_time | to_jalali:"%H : %M"}}</li>
+					<li><i class="fa fa-calendar"></i>{{comment.created_time | to_jalali:"%Y/%m/%d"}}</li>
+				</ul>
+				<p>{{comment.body}}</p>
+				{% if comment.parent is None %}
+				<a class="btn btn-primary replay-comment" onclick="sendReplayComment({{comment.id}})"><i class="fa fa-reply"></i>پاسـخ</a>
+				{% endif %}
+			</div>
+		</li>
+		
+		{% for sub_comment in comment.replies.all %}
+		<li class="media second-media" id="comment-location-{{sub_comment.id}}">
+			<input type="hidden" id="set-comment-id" value="{{sub_comment.id}}">
+			<a class="pull-right" href="#">
+			{% thumbnail sub_comment.author.userprofile.avatar "121x86" quality=100 as im %}
+				<img class="media-object" src="{{ im.url }}" alt="">
+			{% endthumbnail %}
+			</a>
+			<div class="media-body">
+				<ul class="sinlge-post-meta">
+					<li><i class="fa fa-user"></i>{{sub_comment.author}}</li>
+					<li><i class="fa fa-clock-o"></i>{{sub_comment.created_time | to_jalali:"%H : %M"}}</li>
+					<li><i class="fa fa-calendar"></i>{{sub_comment.created_time | to_jalali:"%Y/%m/%d"}}</li>
+				</ul>
+				<p>{{sub_comment.body}}</p>
+				
+			</div>
+		</li>
+		{% endfor %}{% endfor %}
+	</ul>					

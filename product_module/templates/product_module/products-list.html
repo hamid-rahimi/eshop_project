@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% load poll_extras %}
+
+{% block title %}product list{% endblock title %}
+
+{% block content %}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>TITLE</th>
+            <th>PRICE</th>
+            <th>CATEGORY</th>
+            <th>DESCRIPTION</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>
+                <a href="{{ product.get_absolute_url }}">
+                    {{ product.id}}
+                </a>
+            </td>
+            <td>
+                <a href="{% url "product-detail" product.slug %}">
+                    {{ product.title|upper}}
+                </a>
+            </td>
+            <td>
+                <a href="{{ product.get_absolute_url }}">
+                    {{ product.price}}
+                </a>
+            </td>
+            <td>
+                <a href="{{ product.get_absolute_url }}">
+                    {% for category in product.product_category.all %}
+                        {{ category.url_title }}/
+                    {% endfor %}
+                </a>
+            </td>
+            <td>
+                <a href="{% url "product-detail" product.slug %}">
+                    {{ product.short_description }}
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <hr>
+    <p>
+        Number of Products : {{ price_average.title__count }}
+    </p>
+    <p>
+        Price average : {{ price_average.price__avg|floatformat:"2"|dwc }}
+    </p>
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% load static %}
+{% load poll_extras %}
+
+<div class="col-sm-4">
+    <div class="product-image-wrapper">
+        <div class="single-products">
+            <div class="productinfo text-center">
+                <img src="
+                {% if product.image %}{{product.image.url}}{% else %}{% static "images/shop/product.jpg" %}
+                {% endif %}" alt="{{product.title}}">
+                <h2>{{ product.price | dwc}} </h2>
+                <p>{{ product.title }}</p>
+                <input type="hidden" name="count_of_product" value="1">
+                <a onclick="addToProductOrderList({{product.id}})" class=" cursor_pointer btn btn-default add-to-cart">
+                    <i class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a>
+            </div>
+            <div class="product-overlay">
+                <div class="overlay-content">
+                    <h2>{{ product.price|dwc }} </h2>
+                    <p> {{ product.title }} </p>
+                    <a onclick="addToProductOrderList({{product.id}})" class=" cursor_pointer btn btn-default add-to-cart">
+                        <i class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a>
+                </div>
+            </div>
+        </div>
+        <div class="choose">
+            <ul class="nav nav-pills nav-justified">
+                <li><a href="{{ product.get_absolute_url }}"><i class="fa fa-plus-square"></i>جزئیات</a></li>
+                {% if position == "delete_from_favorite_list" %}
+                <li class="cursor_pointer">
+                    <a onclick="delete_from_favorite_list({{product.id}},{{request.user.id}})" ><i class="fa fa-plus-circle"></i>حذف</a>
+                </li>
+                {% else %}
+                <li>
+                    <a href=""><i class="fa fa-plus-square"></i>مقایسه</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>

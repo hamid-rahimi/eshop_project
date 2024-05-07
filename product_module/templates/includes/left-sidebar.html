@@ -1,0 +1,85 @@
+{% load static %}
+{% load poll_extras %}
+{% load thumbnail %}
+<div class="left-sidebar">
+    <h2>دسته بندی محصولات</h2>
+    <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+    
+        <div class="panel panel-default">
+            {% for category in list_category %}
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordian" href="#{{category.id}}">
+                            {% if not category.categories %}
+                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                {{ category.title }} 
+                            {% endif %}
+                        </a>
+                    </h4>
+                </div>
+                <div id="{{category.id}}" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul>
+                            {% for prod in  category.productcategory_set.all %}
+                                <li><a href="{% url "products-page" cat_id=prod.id %}">{{ prod }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% for product in products %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a href="#">{{product.title}}</a></h4>
+            </div>
+        </div>
+        {% empty %}EMPTY{% endfor %}
+    </div><!--/category-productsr-->
+
+    <div class="brands_products"><!--brands_products-->
+        <h2>برنـدها</h2>
+        <div class="brands-name">
+            <ul class="nav nav-pills nav-stacked">
+                {% for brand in brands %}
+                    <li><a href=""> <span class="pull-left">({{brand.count}})</span>{{ brand }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div><!--/brands_products-->
+    
+    <div class="price-range"><!--price-range-->
+        <h2>فیلتـر قیمـت</h2>
+        <div class="well">
+                <input type="text"
+                    class="span2"
+                    value="{{start_price}},{{end_price}}"
+                    data-slider-min="0"
+                    data-slider-max="{{ max_price }}"
+                    data-slider-step="{{step}}"
+                    data-slider-value="[{{ start_price }},{{ end_price }}]"
+                    id="sl2" >
+                <br>
+                <b>0</b> <b class="pull-left">{{ max_price }} </b>
+            </div>
+        </div><!--/price-range-->
+        <div>
+            <form action="" method="get" id="filter_form">
+                <input type="hidden" name="page" id="page" value="{{page_obj.number}}">
+                <input type="hidden" name="start_price" id="start_price" value="{{start_price}}">
+                <input type="hidden" name="end_price" id="end_price" value="{{end_price}}">
+            </form>
+            <button class="btn btn-success btn-block" onclick="filterPriceButton()">فیلتر</button>
+        </div>
+    
+    <div class="shipping text-center"><!--shipping-->
+        {% for banner in banners %}
+            {% thumbnail banner.image "270x550" as im %}
+                <a href="{{banner.url}}" target="_blank"><img src="{{im.url}}" alt=""></a>
+                <br><br>
+            {% endthumbnail %}
+        {% endfor %}
+    </div><!--/shipping-->
+    
+</div>

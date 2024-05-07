@@ -1,0 +1,59 @@
+{% extends "shared/_layout.html" %}
+{% load render_partial %}
+{% load static %}
+{% load poll_extras %}
+
+{% block title %}
+	product List
+{% endblock title %}
+
+{% block content %}
+    <section>
+		<div class="container">
+			<div class="row">
+				
+				<div class="col-sm-9 padding-right">
+					<div class="features_items"><!--features_items-->
+						<h2 class="title text-center">لیست محصولات</h2>
+
+						{% for product in products %}
+							{% include "includes/product-item-partial.html" with product=product %}
+						{% empty %}
+							EMPTY
+						{% endfor %}
+
+						<div class="clearfix"></div>
+						
+						<ul class="pagination ">
+							{% if page_obj.has_previous %}
+								<li class="cursor_pointer"><a onclick="fillPage(1)">First</a></li>
+								<li class="cursor_pointer"><a onclick="fillPage({{page_obj.previous_page_number}})">Previous</a></li>
+							{% endif %}
+							{% for p in paginator.page_range %}
+								<li class="cursor_pointer {% if page_obj.number == p %}active{% endif %}">
+									<a onclick="fillPage({{p}})">{{p}}</a>
+								</li>
+							{% endfor %}
+							{% if page_obj.has_next %}
+								<li class="cursor_pointer"><a onclick="fillPage({{page_obj.next_page_number}})">Next</a></li>
+								<li class="cursor_pointer"><a onclick="fillPage({{paginator.num_pages}})">Last</a></li>
+							{% endif %}
+							
+							{% comment %} <li class="active"><a href="">1</a></li>
+							<li><a href="">2</a></li>
+							<li><a href="">3</a></li>
+							<li><a href="">»</a></li> {% endcomment %}
+						</ul>
+					</div><!--features_items-->
+				</div>
+				
+				<div class="col-sm-3">
+					
+                    {% render_partial 'product_module.views.sidebar_loader' %}
+					
+				</div>
+				
+			</div>
+		</div>
+	</section>
+{% endblock content %}

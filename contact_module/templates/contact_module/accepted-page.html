@@ -1,0 +1,30 @@
+{% extends "shared/_layout.html" %}
+{% block title %}ارسال موفق{% endblock title %}
+{% block content %}
+    <ul>
+        <li>
+            <h3>{{ message.title }}</h3>title
+        </li>
+        <li>
+            <h3>{{ message.email }}</h3>email
+        </li>
+        <li>
+            <h3>{{ message.fullname }}</h3>fullname
+        </li>
+        <li>
+            <h3>{{ message.message }}</h3>message
+        </li>
+        <li>
+            <h3>{{ message.created_time }}</h3>created_time
+        </li>
+        <li>
+            <h3>{{ message.response_time }}</h3>response_time
+        </li>
+        <li>
+            <h3>{{ message.response }}</h3>response
+        </li>
+        <li>
+            <h3>{{ message.is_read_by_admin }}</h3>is_read_by_admin
+        </li>
+    </ul>
+{% endblock content %}

@@ -1,0 +1,75 @@
+{% load thumbnail %}
+{% load poll_extras %}
+<table class="table table-condensed">
+    <thead>
+        <tr class="cart_menu">
+            <td class="image">کـالا</td>
+            <td class="description">توضیحات</td>
+            <td class="price">قیمت</td>
+            <td class="quantity">تعـداد</td>
+            <td class="total">مجمـوع</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in order.orderitem_set.all %}
+        <tr>
+            <td class="cart_product">
+                <a href="">
+                    {% thumbnail item.product.image "75x75" as im %}
+                    <img src="{{im.url}}" alt="">
+                    {% endthumbnail %}
+                </a>
+            </td>
+            <td class="cart_description">
+                <h4><a href="">{{item.product.title}} </a></h4>
+                <p>شناسـه : {{item.product.id}}</p>
+            </td>
+            <td class="cart_price">
+                <p>{{item.product.price | dwc }}</p>
+            </td>
+            <td class="cart_quantity">
+                <div class="cart_quantity_button">
+                    <a class="cart_quantity_up cursor_pointer" onclick="increaseCountOfProduct({{item.id}})"> + </a>
+                    <input class="cart_quantity_input" type="text" name="quantity" value="{{item.count}}" autocomplete="off" size="2">
+                    <a class="cart_quantity_down cursor_pointer" onclick="decreaseCountOfProduct({{item.id}})"> {% if item.count == 1 %}<i class="fa fa-trash-o"></i>{% else %}-{% endif %} </a>
+                </div>
+            </td>
+            <td class="cart_total">
+                <p class="cart_total_price">{{item.total_price | dwc }} </p>
+            </td>
+            <td class="cart_delete">
+                <a class="cart_quantity_delete cursor_pointer" onclick="deleteFromOrderList({{item.id}})">
+                    <i class="fa fa-trash-o"></i></a>
+            </td>
+        </tr>
+        {% empty %}
+        <p>سبد خرید خالی است</p>
+        {% endfor %}
+
+        <tr style="border-top: 2px solid #FD9A15">
+            <td colspan="4">&nbsp;</td>
+            <td colspan="2">
+                <table class="table table-condensed total-result" style="font-size: 13pt">
+                    <tbody><tr>
+                        <td>مجمـوع سبـد خریـد</td>
+                        <td>{{total_order_price | dwc}}</td>
+                    </tr>
+                    <tr>
+                        <td>مالیـات (9%)</td>
+                        <td> {{tax | dwc}}</td>
+                    </tr>
+                    <tr class="shipping-cost">
+                        <td>هزینـه حمل و نقـل</td>
+                        <td>رایـگان</td>										
+                    </tr>
+                    <tr>
+                        <td>مجمـوع</td>
+                        <td><span>{{total_sum | dwc}}</span></td>
+                    </tr>
+                </tbody></table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
